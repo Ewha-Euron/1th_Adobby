@@ -1,5 +1,6 @@
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
+import 'package:adobby/widgets/DatePicker.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text(
           '하루 한 줄',
@@ -35,7 +36,13 @@ class MainScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                alignment: Alignment.topCenter,
+                image: AssetImage('assets/clouds.png'))),
+        child: Center(),
+      ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           backgroundColor: Colors.deepPurple[800],

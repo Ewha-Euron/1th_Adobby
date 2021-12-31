@@ -1,3 +1,4 @@
+import 'package:adobby/widgets/DatePicker.dart';
 import 'package:flutter/material.dart';
 
 class CalendarScreen extends StatelessWidget {
@@ -21,7 +22,13 @@ class CalendarScreen extends StatelessWidget {
         backgroundColor: Colors.grey[200],
         elevation: 0.0,
       ),
-      body: Center(),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                alignment: Alignment.topCenter,
+                image: AssetImage('assets/clouds.png'))),
+        child: Center(),
+      ),
     );
   }
 }
