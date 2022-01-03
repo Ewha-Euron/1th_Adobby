@@ -1,6 +1,6 @@
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
-import 'package:adobby/widgets/DatePicker.dart';
+import 'package:adobby/widgets/DatetimePicker.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -41,7 +41,12 @@ class MainScreen extends StatelessWidget {
             image: DecorationImage(
                 alignment: Alignment.topCenter,
                 image: AssetImage('assets/clouds.png'))),
-        child: Center(),
+        child: Center(
+            child: Column(
+          children: <Widget>[
+            DatetimePicker(),
+          ],
+        )),
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
