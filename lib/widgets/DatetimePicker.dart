@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
-class DatetimePicker extends StatelessWidget {
+class DatetimePicker extends StatefulWidget {
   const DatetimePicker({Key? key}) : super(key: key);
+
+  @override
+  _DatetimePickerState createState() => _DatetimePickerState();
+}
+
+class _DatetimePickerState extends State<DatetimePicker> {
+  String dateText = '날짜를 선택해주세요';
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +19,7 @@ class DatetimePicker extends StatelessWidget {
           DatePicker.showDatePicker(context,
               showTitleActions: true,
               minTime: DateTime(2018, 1),
-              maxTime: DateTime(2022, 12),
+              maxTime: DateTime(2022, 1),
               theme: DatePickerTheme(
                   headerColor: Colors.grey,
                   backgroundColor: Colors.deepPurple,
@@ -25,10 +33,13 @@ class DatetimePicker extends StatelessWidget {
                 date.timeZoneOffset.inHours.toString());
           }, onConfirm: (date) {
             print('confirm $date');
+            setState(() {
+              dateText = DateFormat.yMMM().format(date);
+            });
           }, currentTime: DateTime.now(), locale: LocaleType.ko);
         },
         child: Text(
-          '날짜를 골라주세요!',
+          dateText,
           style: TextStyle(
               color: Colors.deepPurple[400],
               fontWeight: FontWeight.bold,
