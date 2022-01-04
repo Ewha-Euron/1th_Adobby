@@ -1,11 +1,17 @@
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
 import 'package:adobby/widgets/DatetimePicker.dart';
+//import 'package:adobby/widgets/DiaryList.dart';
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +51,7 @@ class MainScreen extends StatelessWidget {
             child: Column(
           children: <Widget>[
             DatetimePicker(),
+            //DiaryList(),
           ],
         )),
       ),
