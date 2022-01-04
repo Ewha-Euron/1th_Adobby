@@ -38,6 +38,8 @@ dependencies:
   scroll_date_picker: ^3.0.0
   flutter_datetime_picker: ^1.5.1
   date_utils: ^0.2.0
+  flutter_calendar_carousel: ^2.1.0
+  table_calendar: ^3.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
 import 'package:adobby/widgets/DatetimePicker.dart';
+//import 'package:adobby/widgets/DiaryList.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -50,6 +51,7 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
           children: <Widget>[
             DatetimePicker(),
+            //DiaryList(),
           ],
         )),
       ),

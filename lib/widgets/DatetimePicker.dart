@@ -10,7 +10,7 @@ class DatetimePicker extends StatefulWidget {
 }
 
 class _DatetimePickerState extends State<DatetimePicker> {
-  String dateText = '날짜를 선택해주세요';
+  String dateText = DateFormat.yMMM().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
