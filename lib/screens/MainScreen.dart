@@ -3,6 +3,7 @@ import 'package:adobby/screens/CalendarScreen.dart';
 import 'package:adobby/widgets/DatetimePicker.dart';
 //import 'package:adobby/widgets/DiaryList.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -11,7 +12,47 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
+class Diary {
+  int _id = 0;
+  DateTime date = DateTime.now();
+  Image? image;
+  String text = '';
+  String line = '';
+
+  Diary(this.text);
+}
+
 class _MainScreenState extends State<MainScreen> {
+  // 다이어리 목록을 저장할 리스트
+  final _items = <Diary>[];
+
+  // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
+  var _diaryController = TextEditingController();
+
+  void dispose() {
+    _diaryController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildItemWidget(Diary diary) {
+    return Card(
+      child: ListTile(
+        onTap: () {},
+        leading: Text(
+          DateFormat.MMMd().format(diary.date),
+        ),
+        title: Text(
+          diary.line,
+        ),
+        subtitle: Text(
+          diary.text,
+        ),
+        //trailing: Image(image: diary.image,), nullsafety 때문에 계속 에러 나는 듯
+        isThreeLine: true,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +92,12 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
           children: <Widget>[
             DatetimePicker(),
-            //DiaryList(),
+            Expanded(
+                child: ListView(
+              children: _items.reversed
+                  .map((diary) => _buildItemWidget(diary))
+                  .toList(),
+            ))
           ],
         )),
       ),

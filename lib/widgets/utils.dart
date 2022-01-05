@@ -1,5 +1,6 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
+// Calendar 위젯에 필요한 파일
 
 import 'dart:collection';
 
