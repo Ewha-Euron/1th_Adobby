@@ -16,6 +16,7 @@ class Diary {
   int _id = 0;
   DateTime date = DateTime.now();
   Image? image;
+  String title = '';
   String text = '';
   String line = '';
 
@@ -27,12 +28,12 @@ class _MainScreenState extends State<MainScreen> {
   final _items = <Diary>[];
 
   // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
-  var _diaryController = TextEditingController();
+  //var _diaryController = TextEditingController();
 
-  void dispose() {
-    _diaryController.dispose();
-    super.dispose();
-  }
+  //void dispose() {
+  //  _diaryController.dispose();
+  //  super.dispose();
+  //}
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -42,10 +43,10 @@ class _MainScreenState extends State<MainScreen> {
           DateFormat.MMMd().format(diary.date),
         ),
         title: Text(
-          diary.line,
+          diary.title,
         ),
         subtitle: Text(
-          diary.text,
+          diary.line,
         ),
         //trailing: Image(image: diary.image,), nullsafety 때문에 계속 에러 나는 듯
         isThreeLine: true,
