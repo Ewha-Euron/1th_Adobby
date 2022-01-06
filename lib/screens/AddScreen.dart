@@ -1,8 +1,36 @@
+import 'package:adobby/widgets/Diary.dart';
 import 'package:adobby/widgets/TextDiaryAddPic.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class AddScreen extends StatelessWidget {
+class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
+
+  @override
+  _AddScreenState createState() => _AddScreenState();
+}
+
+class _AddScreenState extends State<AddScreen> {
+  // 메인 화면에서 items를 전달 받기 위한 변수 정의
+  // final List<Diary> items = [];
+
+  // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
+  var _diaryTitleController = TextEditingController();
+  var _diaryTextController = TextEditingController();
+
+  void dispose() {
+    _diaryTitleController.dispose();
+    _diaryTextController.dispose();
+    super.dispose();
+  }
+
+  void _addDiary(Diary diary) {
+    setState(() {
+      // items.add(diary);
+      _diaryTitleController.text = '';
+      _diaryTextController.text = '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,27 +49,65 @@ class AddScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                '날짜',
-                style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
+                DateFormat.yMMMd().format(DateTime.now()),
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple[400]),
+              ),
+              Text(
+                DateFormat.E().format(DateTime.now()),
+                style: TextStyle(fontSize: 15.0),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                '제목을 작성해주세요',
-                style: TextStyle(
-                    color: Colors.grey[400],
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold),
+                '따분한 일상에 감성 한 스푼',
+                style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
+              ),
+              TextField(
+                controller: _diaryTitleController,
+                decoration: InputDecoration(
+                  labelText: '제목을 작성해주세요',
+                ),
               ),
               SizedBox(
                 height: 40,
               ),
-              Text(
-                '내용을 작성해주세요.',
-                style: TextStyle(
-                  color: Colors.grey[350],
+              TextField(
+                controller: _diaryTextController,
+                decoration: InputDecoration(
+                  labelText: '내용을 작성해주세요',
                 ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              // 테스트를 위한 추가 버튼
+              ElevatedButton(
+                onPressed: () {
+                  //String inputTitle = _diaryTitleController.text;
+                  //String inputText = _diaryTextController.text;
+
+                  final diary = new Diary(
+                      title: _diaryTitleController.value.text,
+                      text: _diaryTextController.value.text);
+
+                  Navigator.pop(context, diary);
+                  /*
+                  Navigator.pop(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainScreen(
+                              //title: inputTitle, // 테스트용
+                              //text: inputText,
+                              //items[index].title: inputTitle,
+                              //items[index].text: inputText,
+                              )));
+                              */
+                },
+                child: Text('저장'),
               )
             ],
           ),
