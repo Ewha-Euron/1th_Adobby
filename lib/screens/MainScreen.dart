@@ -16,17 +16,8 @@ class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록을 저장할 리스트
   final items = <Diary>[];
 
-  // 테스트용
   String text = 'Text';
   String title = 'Title';
-
-  // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
-  //var _diaryController = TextEditingController();
-
-  //void dispose() {
-  //  _diaryController.dispose();
-  //  super.dispose();
-  //}
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -57,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
 
     items.add(diaryItem);
 
-    // AddScreen으로부터 입력받은 전달값을 setState() 함수를 통해 text에 result값 덮어쓰기
+    // AddScreen으로부터 입력받은 전달값을 setState() 함수를 통해 덮어쓰기
     setState(() {
       title = diaryItem.title;
       text = diaryItem.text;
@@ -103,8 +94,6 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
           children: <Widget>[
             DatetimePicker(),
-            Text(text),
-            Text(title),
             Expanded(
                 child: ListView(
               children: items.reversed
@@ -119,14 +108,6 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.deepPurple[800],
           onPressed: () {
             _awaitReturnValueFromAddScreen(context);
-            /*
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddScreen(
-                        //items: items -> 여기서 왜 에러가 발생하는지..?
-                        )));
-            */
           }),
     );
   }

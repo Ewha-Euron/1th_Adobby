@@ -11,9 +11,6 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  // 메인 화면에서 items를 전달 받기 위한 변수 정의
-  // final List<Diary> items = [];
-
   // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
   var _diaryTitleController = TextEditingController();
   var _diaryTextController = TextEditingController();
@@ -26,7 +23,6 @@ class _AddScreenState extends State<AddScreen> {
 
   void _addDiary(Diary diary) {
     setState(() {
-      // items.add(diary);
       _diaryTitleController.text = '';
       _diaryTextController.text = '';
     });
@@ -84,28 +80,14 @@ class _AddScreenState extends State<AddScreen> {
               SizedBox(
                 height: 40,
               ),
-              // 테스트를 위한 추가 버튼
+              // 테스트를 위한 추가하기 버튼
               ElevatedButton(
                 onPressed: () {
-                  //String inputTitle = _diaryTitleController.text;
-                  //String inputText = _diaryTextController.text;
-
                   final diary = new Diary(
                       title: _diaryTitleController.value.text,
                       text: _diaryTextController.value.text);
 
                   Navigator.pop(context, diary);
-                  /*
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MainScreen(
-                              //title: inputTitle, // 테스트용
-                              //text: inputText,
-                              //items[index].title: inputTitle,
-                              //items[index].text: inputText,
-                              )));
-                              */
                 },
                 child: Text('저장'),
               )
