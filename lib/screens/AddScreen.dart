@@ -30,6 +30,8 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
@@ -62,35 +64,60 @@ class _AddScreenState extends State<AddScreen> {
                 '따분한 일상에 감성 한 스푼',
                 style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
               ),
-              TextField(
-                controller: _diaryTitleController,
-                decoration: InputDecoration(
-                  labelText: '제목을 작성해주세요',
-                ),
-              ),
               SizedBox(
                 height: 40,
               ),
-              TextField(
-                controller: _diaryTextController,
-                decoration: InputDecoration(
-                  labelText: '내용을 작성해주세요',
-                ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              // 테스트를 위한 추가하기 버튼
-              ElevatedButton(
-                onPressed: () {
-                  final diary = new Diary(
-                      title: _diaryTitleController.value.text,
-                      text: _diaryTextController.value.text);
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(8.0),
+                      width: width - 80,
+                      child: TextField(
+                        maxLines: 1,
+                        controller: _diaryTitleController,
+                        decoration: InputDecoration(
+                          labelText: '제목을 작성해주세요',
+                          fillColor: Colors.grey[300],
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(8.0),
+                      width: width - 80,
+                      child: TextField(
+                        maxLines: 7,
+                        controller: _diaryTextController,
+                        decoration: InputDecoration(
+                          labelText: '내용을 작성해주세요',
+                          fillColor: Colors.grey[300],
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    // 테스트를 위한 추가하기 버튼
+                    ElevatedButton(
+                        onPressed: () {
+                          final diary = new Diary(
+                              title: _diaryTitleController.value.text,
+                              text: _diaryTextController.value.text);
 
-                  Navigator.pop(context, diary);
-                },
-                child: Text('저장'),
-              )
+                          Navigator.pop(context, diary);
+                        },
+                        child: Text('저장'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple,
+                        ))
+                  ],
+                ),
+              ),
             ],
           ),
         ));
