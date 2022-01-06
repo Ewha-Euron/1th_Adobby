@@ -57,6 +57,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -85,23 +87,26 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                alignment: Alignment.topCenter,
-                image: AssetImage('assets/clouds.png'))),
-        child: Center(
-            child: Column(
-          children: <Widget>[
-            DatetimePicker(),
-            Expanded(
-                child: ListView(
-              children: items.reversed
-                  .map((diary) => _buildItemWidget(diary))
-                  .toList(),
-            ))
-          ],
-        )),
+      body: Center(
+        child: Container(
+          width: width - 20,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  alignment: Alignment.topCenter,
+                  image: AssetImage('assets/clouds.png'))),
+          child: Center(
+              child: Column(
+            children: <Widget>[
+              DatetimePicker(),
+              Expanded(
+                  child: ListView(
+                children: items.reversed
+                    .map((diary) => _buildItemWidget(diary))
+                    .toList(),
+              ))
+            ],
+          )),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
