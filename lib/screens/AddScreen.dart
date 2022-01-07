@@ -11,9 +11,6 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  // 메인 화면에서 items를 전달 받기 위한 변수 정의
-  // final List<Diary> items = [];
-
   // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
   var _diaryTitleController = TextEditingController();
   var _diaryTextController = TextEditingController();
@@ -26,7 +23,6 @@ class _AddScreenState extends State<AddScreen> {
 
   void _addDiary(Diary diary) {
     setState(() {
-      // items.add(diary);
       _diaryTitleController.text = '';
       _diaryTextController.text = '';
     });
@@ -34,6 +30,8 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
@@ -66,49 +64,60 @@ class _AddScreenState extends State<AddScreen> {
                 '따분한 일상에 감성 한 스푼',
                 style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
               ),
-              TextField(
-                controller: _diaryTitleController,
-                decoration: InputDecoration(
-                  labelText: '제목을 작성해주세요',
-                ),
-              ),
               SizedBox(
                 height: 40,
               ),
-              TextField(
-                controller: _diaryTextController,
-                decoration: InputDecoration(
-                  labelText: '내용을 작성해주세요',
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(8.0),
+                      width: width - 80,
+                      child: TextField(
+                        maxLines: 1,
+                        controller: _diaryTitleController,
+                        decoration: InputDecoration(
+                          labelText: '제목을 작성해주세요',
+                          fillColor: Colors.grey[300],
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(8.0),
+                      width: width - 80,
+                      child: TextField(
+                        maxLines: 7,
+                        controller: _diaryTextController,
+                        decoration: InputDecoration(
+                          labelText: '내용을 작성해주세요',
+                          fillColor: Colors.grey[300],
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    // 테스트를 위한 추가하기 버튼
+                    ElevatedButton(
+                        onPressed: () {
+                          final diary = new Diary(
+                              title: _diaryTitleController.value.text,
+                              text: _diaryTextController.value.text);
+
+                          Navigator.pop(context, diary);
+                        },
+                        child: Text('저장'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple,
+                        ))
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 40,
-              ),
-              // 테스트를 위한 추가 버튼
-              ElevatedButton(
-                onPressed: () {
-                  //String inputTitle = _diaryTitleController.text;
-                  //String inputText = _diaryTextController.text;
-
-                  final diary = new Diary(
-                      title: _diaryTitleController.value.text,
-                      text: _diaryTextController.value.text);
-
-                  Navigator.pop(context, diary);
-                  /*
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MainScreen(
-                              //title: inputTitle, // 테스트용
-                              //text: inputText,
-                              //items[index].title: inputTitle,
-                              //items[index].text: inputText,
-                              )));
-                              */
-                },
-                child: Text('저장'),
-              )
             ],
           ),
         ));

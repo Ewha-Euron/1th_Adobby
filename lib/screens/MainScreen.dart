@@ -15,18 +15,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록을 저장할 리스트
   final items = <Diary>[];
-
-  // 테스트용
-  String text = 'Text';
-  String title = 'Title';
-
-  // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
-  //var _diaryController = TextEditingController();
-
-  //void dispose() {
-  //  _diaryController.dispose();
-  //  super.dispose();
-  //}
+  var itemsToCalendar = <Diary>[];
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -57,15 +46,29 @@ class _MainScreenState extends State<MainScreen> {
 
     items.add(diaryItem);
 
-    // AddScreen으로부터 입력받은 전달값을 setState() 함수를 통해 text에 result값 덮어쓰기
+    // AddScreen으로부터 입력받은 전달값을 setState() 함수를 통해 덮어쓰기
     setState(() {
-      title = diaryItem.title;
-      text = diaryItem.text;
+      //title = diaryItem.title;
+      //text = diaryItem.text;
+    });
+  }
+
+  // 캘린더 화면으로 items를 전달
+  void _sendItemsToCalendarScreen(BuildContext context) async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => CalendarScreen(items: items)));
+    //final returnItems = await Navigator.push(
+    //    context, MaterialPageRoute(builder: (context) => CalendarScreen(items: returnItems)));
+
+    setState(() {
+      //itemsToCalendar = returnItems;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -82,8 +85,11 @@ class _MainScreenState extends State<MainScreen> {
           icon: Icon(Icons.calendar_today),
           color: Colors.deepPurple[400],
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CalendarScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CalendarScreen(items: items)));
+            //_sendReturnValueToCalendarScreen(context);
           },
         ),
         actions: <Widget>[
@@ -94,39 +100,32 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                alignment: Alignment.topCenter,
-                image: AssetImage('assets/clouds.png'))),
-        child: Center(
-            child: Column(
-          children: <Widget>[
-            DatetimePicker(),
-            Text(text),
-            Text(title),
-            Expanded(
-                child: ListView(
-              children: items.reversed
-                  .map((diary) => _buildItemWidget(diary))
-                  .toList(),
-            ))
-          ],
-        )),
+      body: Center(
+        child: Container(
+          width: width - 20,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  alignment: Alignment.topCenter,
+                  image: AssetImage('assets/clouds.png'))),
+          child: Center(
+              child: Column(
+            children: <Widget>[
+              DatetimePicker(),
+              Expanded(
+                  child: ListView(
+                children: items.reversed
+                    .map((diary) => _buildItemWidget(diary))
+                    .toList(),
+              ))
+            ],
+          )),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           backgroundColor: Colors.deepPurple[800],
           onPressed: () {
             _awaitReturnValueFromAddScreen(context);
-            /*
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddScreen(
-                        //items: items -> 여기서 왜 에러가 발생하는지..?
-                        )));
-            */
           }),
     );
   }
