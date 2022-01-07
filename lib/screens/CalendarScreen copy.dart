@@ -19,7 +19,7 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -113,37 +113,35 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 _focusedDay = focusedDay;
               },
             ),
-            Expanded(
+            Center(
                 child: Container(
+              width: width - 20,
               color: Colors.deepPurple[400],
-              width: width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        DateFormat.yMMMMd().format(_selectedDay),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
+              // items가 null이 아니라면 -> 이 조건이 필요
+              //child: Expanded(
+              //    child: ListView(
+              //  children: items.reversed
+              //      .map((diary) => _buildItemWidget(diary))
+              //      .toList(), // 일단 테스트용
+
+              //items.reversed
+              //    .map((diary) =>
+              //        if (diary.date == _selectedDay) {
+              //           _buildItemWidget(diary);
+              //        }
+              //       )
+              //    .toList(),
+              // diary.date와 _selectedDay가 같을 때만 다이어리가 조건부 렌더링 되도록
+              //items.reversed
+              //    .map((diary) =>
+              //    (diary.date == _selectedDay) ? (
+              //      _buildItemWidget(diary)) : ())
+              //    .toList(),
+              //items.reversed.map((diary) => (
+              //  (diary.date == _selectedDay) ? (
+              //    _buildItemWidget(diary)
+              //  ) : (null)
+              //)).toList(),
             )),
           ],
         ),

@@ -15,9 +15,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록을 저장할 리스트
   final items = <Diary>[];
-
-  String text = 'Text';
-  String title = 'Title';
+  var itemsToCalendar = <Diary>[];
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -50,8 +48,20 @@ class _MainScreenState extends State<MainScreen> {
 
     // AddScreen으로부터 입력받은 전달값을 setState() 함수를 통해 덮어쓰기
     setState(() {
-      title = diaryItem.title;
-      text = diaryItem.text;
+      //title = diaryItem.title;
+      //text = diaryItem.text;
+    });
+  }
+
+  // 캘린더 화면으로 items를 전달
+  void _sendItemsToCalendarScreen(BuildContext context) async {
+    await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => CalendarScreen(items: items)));
+    //final returnItems = await Navigator.push(
+    //    context, MaterialPageRoute(builder: (context) => CalendarScreen(items: returnItems)));
+
+    setState(() {
+      //itemsToCalendar = returnItems;
     });
   }
 
@@ -75,8 +85,11 @@ class _MainScreenState extends State<MainScreen> {
           icon: Icon(Icons.calendar_today),
           color: Colors.deepPurple[400],
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CalendarScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CalendarScreen(items: items)));
+            //_sendReturnValueToCalendarScreen(context);
           },
         ),
         actions: <Widget>[
