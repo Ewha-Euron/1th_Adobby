@@ -53,18 +53,6 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  // 캘린더 화면으로 items를 전달
-  void _sendItemsToCalendarScreen(BuildContext context) async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => CalendarScreen(items: items)));
-    //final returnItems = await Navigator.push(
-    //    context, MaterialPageRoute(builder: (context) => CalendarScreen(items: returnItems)));
-
-    setState(() {
-      //itemsToCalendar = returnItems;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -88,8 +76,9 @@ class _MainScreenState extends State<MainScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CalendarScreen(items: items)));
-            //_sendReturnValueToCalendarScreen(context);
+                    builder: (context) => CalendarScreen(
+                          returnItems: items,
+                        )));
           },
         ),
         actions: <Widget>[

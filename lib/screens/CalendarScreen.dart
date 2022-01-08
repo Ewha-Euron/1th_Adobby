@@ -8,9 +8,11 @@ import 'package:intl/intl.dart';
 var items = <Diary>[];
 
 class CalendarScreen extends StatefulWidget {
-  //var items = <Diary>[];
+  var returnItems = <Diary>[];
 
-  CalendarScreen({Key? key, required items}) : super(key: key);
+  CalendarScreen({Key? key, required this.returnItems}) {
+    items = this.returnItems;
+  }
 
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
@@ -113,38 +115,33 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 _focusedDay = focusedDay;
               },
             ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  DateFormat.yMMMd().format(_selectedDay),
+                  style: TextStyle(
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
-                child: Container(
-              color: Colors.deepPurple[400],
-              width: width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        DateFormat.yMMMMd().format(_selectedDay),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
-            )),
+              child: ListView(
+                  children: items.reversed
+                      .map((diary) => _buildItemWidget(diary))
+                      .toList()),
+            ),
           ],
         ),
       ),
