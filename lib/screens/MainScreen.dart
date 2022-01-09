@@ -31,7 +31,6 @@ class _MainScreenState extends State<MainScreen> {
           diary.text,
           //diary.line,
         ),
-        //trailing: Image(image: diary.image,), nullsafety 때문에 계속 에러 나는 듯
         isThreeLine: true,
       ),
     );
@@ -43,8 +42,9 @@ class _MainScreenState extends State<MainScreen> {
     // 동기화 가능하도록 await 타입으로 Navigator.push() 함수 선언
     final diaryItem = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => AddScreen()));
-
-    items.add(diaryItem);
+    if (diaryItem != null) {
+      items.add(diaryItem);
+    }
 
     // AddScreen으로부터 입력받은 전달값을 setState() 함수를 통해 덮어쓰기
     setState(() {
