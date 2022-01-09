@@ -37,20 +37,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
           diary.text,
           //diary.line,
         ),
-        //trailing: Image(image: diary.image,), nullsafety 때문에 계속 에러 나는 듯
         isThreeLine: true,
       ),
     );
-  }
-
-  // 메인 화면에서 items를 받아와야 됨
-  void _awaitReturnValueFromMainScreen(BuildContext context) async {
-    final returnItems = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainScreen()));
-
-    setState(() {
-      //items = returnItems;
-    });
   }
 
   @override
