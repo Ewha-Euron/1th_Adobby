@@ -35,7 +35,25 @@ class _AddScreenState extends State<AddScreen> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          actions: <Widget>[TextDiaryAddPic()],
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                final diary = new Diary(
+                    title: _diaryTitleController.value.text,
+                    text: _diaryTextController.value.text);
+
+                Navigator.pop(context, diary);
+              },
+              child: Text(
+                '저장',
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0.0,
+                  primary: Colors.grey[200],
+                  shadowColor: Colors.transparent),
+            )
+          ],
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
@@ -65,9 +83,10 @@ class _AddScreenState extends State<AddScreen> {
                 style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
-              SingleChildScrollView(
+              Expanded(
+                flex: 1,
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -84,13 +103,13 @@ class _AddScreenState extends State<AddScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Container(
                       margin: EdgeInsets.all(8.0),
                       width: width - 80,
                       child: TextField(
-                        maxLines: 7,
+                        maxLines: 6,
                         controller: _diaryTextController,
                         decoration: InputDecoration(
                           labelText: '내용을 작성해주세요',
@@ -102,19 +121,6 @@ class _AddScreenState extends State<AddScreen> {
                     SizedBox(
                       height: 40,
                     ),
-                    // 테스트를 위한 추가하기 버튼
-                    ElevatedButton(
-                        onPressed: () {
-                          final diary = new Diary(
-                              title: _diaryTitleController.value.text,
-                              text: _diaryTextController.value.text);
-
-                          Navigator.pop(context, diary);
-                        },
-                        child: Text('저장'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple,
-                        ))
                   ],
                 ),
               ),
