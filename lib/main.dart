@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'datePick.dart';
 import 'diaryList.dart';
@@ -26,3 +27,20 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+=======
+import 'package:adobby/screens/MainScreen.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainScreen(),
+    );
+  }
+}
+>>>>>>> afdfb24fdf58ccbe0d04f9a906c961d2b852c050

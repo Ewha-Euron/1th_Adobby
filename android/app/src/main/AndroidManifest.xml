@@ -2,9 +2,17 @@
     package="com.example.adobby">
    <application
         android:label="adobby"
+<<<<<<< HEAD
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+=======
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+>>>>>>> afdfb24fdf58ccbe0d04f9a906c961d2b852c050
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -18,6 +26,7 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+<<<<<<< HEAD
             <!-- Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash
                  screen fades out. A splash screen is useful to avoid any visual
@@ -27,6 +36,8 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
+=======
+>>>>>>> afdfb24fdf58ccbe0d04f9a906c961d2b852c050
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
