@@ -1,5 +1,6 @@
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
+import 'package:adobby/screens/DetailScreen.dart';
 import 'package:adobby/widgets/DatetimePicker.dart';
 import 'package:adobby/widgets/Diary.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,16 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildItemWidget(Diary diary) {
     return Card(
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          final detailedDiary = new Diary(title: diary.title, text: diary.text);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailScreen(
+                        detailedDiary: detailedDiary,
+                      )));
+        },
         leading: Text(
           DateFormat.MMMd().format(diary.date),
         ),
