@@ -1,3 +1,4 @@
+import 'package:adobby/screens/DetailScreen.dart';
 import 'package:adobby/screens/MainScreen.dart';
 import 'package:adobby/widgets/Diary.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget _buildItemWidget(Diary diary) {
     return Card(
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          final detailedDiary = new Diary(title: diary.title, text: diary.text);
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailScreen(
+                        detailedDiary: detailedDiary,
+                      )));
+        },
         leading: Text(
           DateFormat.MMMd().format(diary.date),
         ),
@@ -127,8 +137,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
             Expanded(
               child: ListView(
-                  children: items.reversed
-                      .map((diary) => _buildItemWidget(diary))
+                  children: items
+                      .map((diary) => (DateFormat.yMMMd().format(diary.date) ==
+                              DateFormat.yMMMd().format(_selectedDay))
+                          ? (_buildItemWidget(diary))
+                          : (Container()))
                       .toList()),
             ),
           ],
