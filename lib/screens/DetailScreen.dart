@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 var diary = new Diary();
+String initialText = 'diary.line';
 
 class DetailScreen extends StatefulWidget {
   //const DetailScreen({Key? key}) : super(key: key);
@@ -17,18 +18,51 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  // 다이어리 인풋 텍스트 조작을 위한 컨트롤러
-  var _diaryTitleController = TextEditingController();
-  var _diaryTextController = TextEditingController();
+  bool editMode = false;
+  bool _isEditingText = false;
+
+  TextEditingController _editingController =
+      TextEditingController(text: initialText);
+
+  void initState() {
+    super.initState();
+    _editingController = TextEditingController(text: initialText);
+  }
 
   void dispose() {
-    _diaryTitleController.dispose();
-    _diaryTextController.dispose();
+    _editingController.dispose();
     super.dispose();
   }
 
-  void _updateDiary(Diary diary) {
-    setState(() {});
+  Widget _editTitleTextField() {
+    if (editMode)
+      return Center(
+          child: Container(
+        child: TextField(
+          onSubmitted: (newValue) {
+            setState(() {
+              initialText = newValue;
+              diary.line = initialText;
+              editMode = false;
+            });
+          },
+          autofocus: true,
+          controller: _editingController,
+        ),
+      ));
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+      Text(
+        initialText,
+        style: TextStyle(fontSize: 19.0),
+      ),
+      IconButton(
+          onPressed: () {
+            setState(() {
+              editMode = true;
+            });
+          },
+          icon: Icon(Icons.edit))
+    ]);
   }
 
   @override
@@ -38,26 +72,6 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                //final diary = new Diary(
-                //    title: _diaryTitleController.value.text,
-                //    text: _diaryTextController.value.text);
-
-                //Navigator.pop(context, diary);
-                print('수정');
-              },
-              child: Text(
-                '수정',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ElevatedButton.styleFrom(
-                  elevation: 0.0,
-                  primary: Colors.grey[200],
-                  shadowColor: Colors.transparent),
-            )
-          ],
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
@@ -89,18 +103,7 @@ class _DetailScreenState extends State<DetailScreen> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'diary.line',
-                    style: TextStyle(
-                      fontSize: 19.0,
-                    ),
-                  ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.edit))
-                ],
-              ),
+              _editTitleTextField(),
               SizedBox(
                 height: 20,
               ),
@@ -108,7 +111,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 width: width - 80,
                 child: Text(
                   diary.text,
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ],
