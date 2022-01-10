@@ -94,8 +94,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Text(
                     'diary.line',
-                    style:
-                        TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 19.0,
+                    ),
                   ),
                   IconButton(onPressed: () {}, icon: Icon(Icons.edit))
                 ],

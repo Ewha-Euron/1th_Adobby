@@ -128,7 +128,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
             Expanded(
               child: ListView(
                   children: items.reversed
-                      .map((diary) => _buildItemWidget(diary))
+                      .map((diary) => (DateFormat.yMMMd().format(diary.date) ==
+                              DateFormat.yMMMd().format(_selectedDay))
+                          ? (_buildItemWidget(diary))
+                          : (Container()))
                       .toList()),
             ),
           ],
