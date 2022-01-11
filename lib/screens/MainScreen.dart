@@ -1,10 +1,10 @@
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
 import 'package:adobby/screens/DetailScreen.dart';
-import 'package:adobby/widgets/DatetimePicker.dart';
 import 'package:adobby/widgets/Diary.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -63,9 +63,12 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  String dateText = DateFormat.yMMM().format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    String datetext = dateText;
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -109,16 +112,47 @@ class _MainScreenState extends State<MainScreen> {
           child: Center(
               child: Column(
             children: <Widget>[
-              DatetimePicker(),
-              //Text(DatetimePickerState().dateText), //테스트용
+              TextButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: DateTime(2018, 1),
+                        maxTime: DateTime(2022, 1),
+                        theme: DatePickerTheme(
+                            headerColor: Colors.grey,
+                            backgroundColor: Colors.deepPurple,
+                            itemStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                            doneStyle:
+                                TextStyle(color: Colors.white, fontSize: 16)),
+                        onChanged: (date) {
+                      print('change $date in time zone ' +
+                          date.timeZoneOffset.inHours.toString());
+                    }, onConfirm: (date) {
+                      print('confirm $date');
+                      setState(() {
+                        dateText = DateFormat.yMMM().format(date);
+                        datetext = DateFormat.yMMM().format(date);
+                      });
+                    }, currentTime: DateTime.now(), locale: LocaleType.ko);
+                  },
+                  child: Text(
+                    //dateText,
+                    datetext,
+                    style: TextStyle(
+                        color: Colors.deepPurple[400],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  )),
               Expanded(
                   child: ListView(
                 children: items.reversed
-                    .map((diary) => DateFormat.yMMM().format(diary.date) ==
-                            DateFormat.yMMM().format(diary.date)
-                        //DatetimePickerState().dateText
-                        ? _buildItemWidget(diary)
-                        : Container())
+                    .map((diary) =>
+                        DateFormat.yMMM().format(diary.date) == datetext
+                            ? _buildItemWidget(diary)
+                            : Container())
                     .toList(),
               ))
             ],

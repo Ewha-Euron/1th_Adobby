@@ -63,7 +63,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           color: Colors.black,
         ),
         title: Text(
-          '캘린더',
+          '하루 한 줄',
           style: TextStyle(
             color: Colors.black,
           ),
