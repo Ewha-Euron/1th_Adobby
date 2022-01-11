@@ -110,10 +110,15 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
             children: <Widget>[
               DatetimePicker(),
+              //Text(DatetimePickerState().dateText), //테스트용
               Expanded(
                   child: ListView(
                 children: items.reversed
-                    .map((diary) => _buildItemWidget(diary))
+                    .map((diary) => DateFormat.yMMM().format(diary.date) ==
+                            DateFormat.yMMM().format(diary.date)
+                        //DatetimePickerState().dateText
+                        ? _buildItemWidget(diary)
+                        : Container())
                     .toList(),
               ))
             ],

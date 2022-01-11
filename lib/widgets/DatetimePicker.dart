@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 class DatetimePicker extends StatefulWidget {
   const DatetimePicker({Key? key}) : super(key: key);
 
+  static _DatetimePickerState state = _DatetimePickerState();
+
   @override
-  _DatetimePickerState createState() => _DatetimePickerState();
+  _DatetimePickerState createState() => state;
 }
 
 class _DatetimePickerState extends State<DatetimePicker> {
@@ -47,5 +49,3 @@ class _DatetimePickerState extends State<DatetimePicker> {
         ));
   }
 }
-// picker에서 일은 없도록 수정해야 함
-// onConfirm에 Text가 currentTime으로 나타나도록 수정해야 함
