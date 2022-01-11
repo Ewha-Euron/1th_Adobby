@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:adobby/domain.dart';
 import '../model/textDiary.dart';
+import '../model/lineInitialize.dart';
 
 class SendToServer {
-  Future<void> newTextDiary(String text, int date, String androidId) async {
+  Future<LineInitialize> newTextDiary(
+      String text, int date, String androidId) async {
     TextDiary diary =
         new TextDiary(text: text, date: date, androidId: androidId);
 
@@ -20,5 +22,9 @@ class SendToServer {
           'date': diary.date,
           'androidId': diary.androidId,
         }));
+    if (response.statusCode == 200) {
+      return LineInitialize.fromJson(json.decode(response.body));
+    }
+    throw Exception();
   }
 }
