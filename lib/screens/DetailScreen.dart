@@ -19,20 +19,9 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   bool editMode = false;
-  bool _isEditingText = false;
 
   TextEditingController _editingController =
       TextEditingController(text: initialText);
-
-  void initState() {
-    super.initState();
-    _editingController = TextEditingController(text: initialText);
-  }
-
-  void dispose() {
-    _editingController.dispose();
-    super.dispose();
-  }
 
   Widget _editTitleTextField() {
     if (editMode)
