@@ -1,5 +1,4 @@
 import 'package:adobby/screens/DetailScreen.dart';
-import 'package:adobby/screens/MainScreen.dart';
 import 'package:adobby/widgets/Diary.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
