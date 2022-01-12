@@ -1,5 +1,4 @@
 import 'package:adobby/widgets/Diary.dart';
-import 'package:adobby/widgets/TextDiaryAddPic.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -19,13 +18,6 @@ class _AddScreenState extends State<AddScreen> {
     _diaryTitleController.dispose();
     _diaryTextController.dispose();
     super.dispose();
-  }
-
-  void _addDiary(Diary diary) {
-    setState(() {
-      _diaryTitleController.text = '';
-      _diaryTextController.text = '';
-    });
   }
 
   @override

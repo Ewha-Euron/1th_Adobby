@@ -25,7 +25,6 @@ class DiaryList extends StatelessWidget {
           diary.text,
           //diary.line,
         ),
-        //trailing: Image(image: diary.image,), nullsafety 때문에 계속 에러 나는 듯
         isThreeLine: true,
       ),
     );

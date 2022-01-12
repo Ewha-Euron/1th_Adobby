@@ -1,5 +1,4 @@
 import 'package:adobby/widgets/Diary.dart';
-import 'package:adobby/widgets/TextDiaryAddPic.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -7,8 +6,6 @@ var diary = new Diary();
 String initialText = 'diary.line';
 
 class DetailScreen extends StatefulWidget {
-  //const DetailScreen({Key? key}) : super(key: key);
-
   DetailScreen({Key? key, required detailedDiary}) {
     diary = detailedDiary;
   }
