@@ -16,7 +16,8 @@ class MainPage extends StatelessWidget {
           child: Text("Start your diary with AI"),
           onPressed: () {
             // Navigator.pushNamed(context, '/datepick');
-            Navigator.pushNamed(context, '/diarylist');
+            // Navigator.pushNamed(context, '/diarylist');
+            Navigator.pushNamed(context, '/diarycontent');
         }
       ),
       ),
