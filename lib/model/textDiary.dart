@@ -1,6 +1,6 @@
 class TextDiary {
   String text;
-  int date;
+  String date;
   String androidId;
 
   TextDiary({required this.text, required this.date, required this.androidId});
