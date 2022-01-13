@@ -7,7 +7,7 @@ import '../model/lineInitialize.dart';
 
 class SendToServer {
   Future<LineInitialize> newTextDiary(
-      String text, int date, String androidId) async {
+      String text, String date, String androidId) async {
     TextDiary diary =
         new TextDiary(text: text, date: date, androidId: androidId);
 

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:device_info/device_info.dart';
 
-var _id = getId(); //androidId
+var androidId = getId();
 int num = 1;
 
 class Diary {
