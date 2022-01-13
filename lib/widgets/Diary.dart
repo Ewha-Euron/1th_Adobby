@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:device_info/device_info.dart';
 
+var _id = getId();
+
 class Diary {
-  var id = getId();
   DateTime date = DateTime.now();
   String title;
   String text;

@@ -5,6 +5,8 @@ import 'package:adobby/widgets/Diary.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:adobby/model/textDiary.dart';
+import 'package:adobby/widgets/DiaryEvent.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,6 +19,23 @@ class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록을 저장할 리스트
   final items = <Diary>[];
   var itemsToCalendar = <Diary>[];
+  String dateText = DateFormat.yMMM().format(DateTime.now());
+
+  // 데이터 불러오기
+  Future<TextDiary>? textDiary;
+
+  void initState() {
+    super.initState();
+    textDiary = fetchDiary();
+  }
+
+  void _awaitReturnValueFromAddScreen(BuildContext context) async {
+    final diaryItem = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddScreen()));
+    if (diaryItem != null) {
+      items.add(diaryItem);
+    }
+  }
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -45,16 +64,6 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-
-  void _awaitReturnValueFromAddScreen(BuildContext context) async {
-    final diaryItem = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddScreen()));
-    if (diaryItem != null) {
-      items.add(diaryItem);
-    }
-  }
-
-  String dateText = DateFormat.yMMM().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
