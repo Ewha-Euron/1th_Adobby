@@ -30,12 +30,21 @@ class SendToServer {
 }
 
 // 데이터 불러오기
-Future<TextDiary> fetchDiary() async {
-  final response =
-      await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
-  if (response.statusCode == 200) {
-    return TextDiary.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load diary');
+class GetFromServer {
+  Future<TextDiary> fetchDiary(String androidId, int yearMonth) async {
+    String addr = domain + "v1/scroll/${androidId}/${yearMonth}";
+
+    final response = await http.get(
+      Uri.parse(addr),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return TextDiary.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load diary');
+    }
   }
 }
