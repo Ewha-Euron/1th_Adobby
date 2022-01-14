@@ -1,3 +1,4 @@
+import 'package:adobby/model/diaryList.dart';
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
 import 'package:adobby/screens/DetailScreen.dart';
@@ -17,16 +18,19 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록을 저장할 리스트
-  final items = <Diary>[];
+  var items = <Diary>[];
   var itemsToCalendar = <Diary>[];
   String dateText = DateFormat.yMMM().format(DateTime.now());
+
+  // 다이어리 목록 불러와서 저장하기
+  DiaryList diarylist = new DiaryList(diaryList: <Diary>[]);
 
   // 데이터 불러오기
   Future<TextDiary>? textDiary;
 
   void initState() {
     super.initState();
-    textDiary = GetFromServer().fetchDiary('androidId', 20220113);
+    //textDiary = GetFromServer().getDiaryList('androidId', 20220114);
   }
 
   void _awaitReturnValueFromAddScreen(BuildContext context) async {
@@ -34,9 +38,9 @@ class _MainScreenState extends State<MainScreen> {
         context, MaterialPageRoute(builder: (context) => AddScreen()));
     if (diaryItem != null) {
       items.add(diaryItem);
+      // 서버에 일기 저장하는 함수 호출
       SendToServer()
-          .newTextDiary(diaryItem.text, diaryItem.date, await androidId);
-      // androidId에서 오류 -> 일단 임의의 문자열로 대체
+          .newTextDiary(diaryItem.text, diaryItem.dateInt, await androidId);
     }
   }
 
@@ -72,6 +76,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     String datetext = dateText;
+    int dateYearMonth = 202201;
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -135,14 +140,17 @@ class _MainScreenState extends State<MainScreen> {
                           date.timeZoneOffset.inHours.toString());
                     }, onConfirm: (date) {
                       print('confirm $date');
-                      setState(() {
+                      setState(() async {
                         dateText = DateFormat.yMMM().format(date);
                         datetext = DateFormat.yMMM().format(date);
+                        dateYearMonth =
+                            int.parse(DateFormat('yyyyMM').format(date));
+                        diarylist = await GetFromServer()
+                            .getDiaryList('androidId', dateYearMonth);
                       });
                     }, currentTime: DateTime.now(), locale: LocaleType.ko);
                   },
                   child: Text(
-                    //dateText,
                     datetext,
                     style: TextStyle(
                         color: Colors.deepPurple[400],

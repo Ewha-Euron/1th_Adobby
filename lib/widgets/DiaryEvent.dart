@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:adobby/model/fullTextDiary.dart';
+import 'package:adobby/widgets/Diary.dart';
 import 'package:http/http.dart' as http;
 import 'package:adobby/domain.dart';
 import '../model/textDiary.dart';
