@@ -1,11 +1,13 @@
 import 'package:adobby/widgets/Diary.dart';
 
 class SimpleDiary {
+  String title;
   int diaryId;
   String line;
   int date;
 
   SimpleDiary({
+    required this.title,
     required this.diaryId,
     required this.line,
     required this.date,
