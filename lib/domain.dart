@@ -1,1 +1,1 @@
-const String domain = "[주소]";
+const String domain = "[주소]/";
