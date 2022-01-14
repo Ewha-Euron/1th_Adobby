@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void initState() {
     super.initState();
-    textDiary = fetchDiary();
+    textDiary = GetFromServer().fetchDiary('androidId', 20220113);
   }
 
   void _awaitReturnValueFromAddScreen(BuildContext context) async {
@@ -34,7 +34,8 @@ class _MainScreenState extends State<MainScreen> {
         context, MaterialPageRoute(builder: (context) => AddScreen()));
     if (diaryItem != null) {
       items.add(diaryItem);
-      SendToServer().newTextDiary(diaryItem.text, diaryItem.date, 'androidId');
+      SendToServer()
+          .newTextDiary(diaryItem.text, diaryItem.date, await androidId);
       // androidId에서 오류 -> 일단 임의의 문자열로 대체
     }
   }

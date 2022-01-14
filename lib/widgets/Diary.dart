@@ -6,7 +6,7 @@ var androidId = getId();
 int num = 1;
 
 class Diary {
-  int _id = num++;
+  int diaryId = num++;
   DateTime date = DateTime.now();
   String title;
   String text;
