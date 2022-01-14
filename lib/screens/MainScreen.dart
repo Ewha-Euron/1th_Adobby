@@ -25,12 +25,11 @@ class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록 불러와서 저장하기
   DiaryList diarylist = new DiaryList(diaryList: <Diary>[]);
 
-  // 데이터 불러오기
-  Future<TextDiary>? textDiary;
-
-  void initState() {
+  // 데이터 불러오기 items 초기화
+  void initState() async {
     super.initState();
-    //textDiary = GetFromServer().getDiaryList('androidId', 20220114);
+    diarylist = await GetFromServer().getDiaryList('androidId', 202201);
+    items = diarylist.diaryList;
   }
 
   void _awaitReturnValueFromAddScreen(BuildContext context) async {
