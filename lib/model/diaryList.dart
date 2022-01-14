@@ -1,3 +1,5 @@
+import 'package:adobby/widgets/Diary.dart';
+
 class SimpleDiary {
   String title;
   int diaryId;
@@ -13,14 +15,17 @@ class SimpleDiary {
 }
 
 class DiaryList {
-  List<SimpleDiary> diaryList;
+  //List<SimpleDiary> diaryList;
+
+  List<Diary> diaryList;
 
   DiaryList({
     required this.diaryList,
   });
 
   factory DiaryList.fromJson(Map<String, dynamic> json) {
-    List<SimpleDiary> diaryList = json['userResponses'];
+    //List<SimpleDiary> diaryList = json['userResponses'];
+    List<Diary> diaryList = json['userResponses'];
     return DiaryList(diaryList: diaryList);
   }
 }
