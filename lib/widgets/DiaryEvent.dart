@@ -12,9 +12,9 @@ import '../model/modifiedLine.dart';
 class SendToServer {
   //일기 작성
   Future<LineInitialize> newTextDiary(
-      String text, String date, String androidId) async {
-    TextDiary diary =
-        new TextDiary(text: text, date: date, androidId: androidId);
+      String title, String text, String date, String androidId) async {
+    TextDiary diary = new TextDiary(
+        title: title, text: text, date: date, androidId: androidId);
 
     String addr = domain + "v1/text"; //서버 주소
 

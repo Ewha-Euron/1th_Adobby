@@ -1,12 +1,20 @@
 class TextDiary {
+  String title;
   String text;
   String date;
   String androidId;
 
-  TextDiary({required this.text, required this.date, required this.androidId});
+  TextDiary(
+      {required this.title,
+      required this.text,
+      required this.date,
+      required this.androidId});
 
   factory TextDiary.fromJson(Map<String, dynamic> json) {
     return TextDiary(
-        text: json['text'], date: json['date'], androidId: json['androidId']);
+        title: json['title'],
+        text: json['text'],
+        date: json['date'],
+        androidId: json['androidId']);
   }
 }
