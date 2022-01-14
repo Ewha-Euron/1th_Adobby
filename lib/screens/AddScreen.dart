@@ -1,4 +1,6 @@
+import 'package:adobby/model/lineInitialize.dart';
 import 'package:adobby/widgets/Diary.dart';
+import 'package:adobby/widgets/DiaryEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -33,9 +35,22 @@ class _AddScreenState extends State<AddScreen> {
                 final diary = new Diary(
                     title: _diaryTitleController.value.text,
                     text: _diaryTextController.value.text);
-
+                // 일기 추가할 때 호출되는 함수
+                //LineInitialize initialline = await SendToServer().newTextDiary(
+                //    diary.title, diary.text, diary.dateInt, 'await androidId');
+                //diary.line = initialline.line;
                 Navigator.pop(context, diary);
               },
+              /*onPressed: () async {
+                final diary = new Diary(
+                    title: _diaryTitleController.value.text,
+                    text: _diaryTextController.value.text);
+                // 일기 추가할 때 호출되는 함수
+                LineInitialize initialline = await SendToServer().newTextDiary(
+                    diary.title, diary.text, diary.dateInt, 'await androidId');
+                diary.line = initialline.line;
+                Navigator.pop(context, diary);
+              },*/
               child: Text(
                 '저장',
                 style: TextStyle(color: Colors.black),

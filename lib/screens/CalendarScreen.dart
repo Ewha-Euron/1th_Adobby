@@ -43,8 +43,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
           diary.title,
         ),
         subtitle: Text(
-          diary.text,
-          //diary.line,
+          //diary.text,
+          diary.line,
         ),
         isThreeLine: true,
       ),

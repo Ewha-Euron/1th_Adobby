@@ -1,9 +1,14 @@
+import 'package:adobby/screens/MainScreen.dart';
 import 'package:adobby/widgets/Diary.dart';
+import 'package:adobby/widgets/DiaryEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 var diary = new Diary();
-String initialText = 'diary.line';
+
+// 한줄 요약 불러오기
+String initialText =
+    (initialline != null) ? initialline!.line : 'summarized line';
 
 class DetailScreen extends StatefulWidget {
   DetailScreen({Key? key, required detailedDiary}) {
@@ -18,7 +23,7 @@ class _DetailScreenState extends State<DetailScreen> {
   bool editMode = false;
 
   TextEditingController _editingController =
-      TextEditingController(text: initialText);
+      TextEditingController(text: diary.line);
 
   Widget _editTitleTextField() {
     if (editMode)

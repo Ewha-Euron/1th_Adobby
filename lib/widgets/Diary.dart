@@ -14,7 +14,7 @@ class Diary {
   int dateInt = int.parse(formatter.format(formattedDate));
   String title;
   String text;
-  String line = '';
+  String line = 'initial line';
 
   Diary({this.title = '', this.text = ''});
 }

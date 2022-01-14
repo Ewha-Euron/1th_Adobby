@@ -12,7 +12,7 @@ import '../model/modifiedLine.dart';
 class SendToServer {
   //일기 작성
   Future<LineInitialize> newTextDiary(
-      String title, String text, String date, String androidId) async {
+      String title, String text, int date, String androidId) async {
     TextDiary diary = new TextDiary(
         title: title, text: text, date: date, androidId: androidId);
 

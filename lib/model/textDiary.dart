@@ -1,7 +1,7 @@
 class TextDiary {
   String title;
   String text;
-  String date;
+  int date;
   String androidId;
 
   TextDiary(
