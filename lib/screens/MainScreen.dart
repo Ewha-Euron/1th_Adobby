@@ -40,6 +40,8 @@ class _MainScreenState extends State<MainScreen> {
         context, MaterialPageRoute(builder: (context) => AddScreen()));
     if (diaryItem != null) {
       items.add(diaryItem);
+
+      setState(() {});
     }
   }
 
@@ -58,15 +60,19 @@ class _MainScreenState extends State<MainScreen> {
   Widget _buildItemWidget(Diary diary) {
     return Card(
       child: ListTile(
-        onTap: () {
+        onTap: () async {
           final detailedDiary = new Diary(title: diary.title, text: diary.text);
 
-          Navigator.push(
+          final modifiedLine = await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => DetailScreen(
                         detailedDiary: detailedDiary,
                       )));
+
+          setState(() {
+            diary.line = modifiedLine;
+          });
         },
         leading: Text(
           DateFormat.MMMd().format(diary.date),

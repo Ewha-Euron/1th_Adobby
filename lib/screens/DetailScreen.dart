@@ -7,8 +7,9 @@ import 'package:intl/intl.dart';
 var diary = new Diary();
 
 // 한줄 요약 불러오기
-String initialText =
-    (initialline != null) ? initialline!.line : 'summarized line';
+//String initialText =
+//    (initialline != null) ? initialline!.line : 'summarized line';
+String initialText = 'summarized line';
 
 class DetailScreen extends StatefulWidget {
   DetailScreen({Key? key, required detailedDiary}) {
@@ -63,6 +64,22 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                final modifiedLine = initialText;
+                Navigator.pop(context, modifiedLine);
+              },
+              child: Text(
+                '완료',
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0.0,
+                  primary: Colors.grey[200],
+                  shadowColor: Colors.transparent),
+            )
+          ],
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
