@@ -17,44 +17,37 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-LineInitialize? initialline;
-
 class _MainScreenState extends State<MainScreen> {
   // 다이어리 목록을 저장할 리스트
   var items = <Diary>[];
   var itemsToCalendar = <Diary>[];
   String dateText = DateFormat.yMMM().format(DateTime.now());
+  int yearMonth = 202201;
 
-  // 다이어리 목록 불러와서 저장하기
-  // DiaryList diarylist = new DiaryList(diaryList: <Diary>[]);
+  Future<DiaryList>? diarylist;
+  //DiaryList? diarylist;
 
-  // 데이터 불러오기 items 초기화
-  //void initState() async {
-  //  super.initState();
-  //diarylist = await GetFromServer().getDiaryList('await androidId', 202201); -> error
-  //items = diarylist.diaryList;
-  //}
+  // 일기 목록 불러오기
+  /*
+  void initState() async {
+    super.initState();
+    diarylist = GetFromServer().getDiaryList('androidId', yearMonth);
+    items = (diarylist != null) ? (await diarylist)!.diaryList : <Diary>[];
+  }*/
 
+  Future<LineInitialize>? lineinitialize;
+
+  // 일기 작성
   void _awaitReturnValueFromAddScreen(BuildContext context) async {
     final diaryItem = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => AddScreen()));
     if (diaryItem != null) {
+      lineinitialize = SendToServer().newTextDiary(
+          diaryItem.title, diaryItem.text, diaryItem.dateInt, 'androidId');
       items.add(diaryItem);
       setState(() {});
     }
   }
-
-  /*void _awaitReturnValueFromAddScreen(BuildContext context) async {
-    final diaryItem = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddScreen()));
-    if (diaryItem != null) {
-      // 일기 추가할 때 호출되는 함수
-      //LineInitialize initialline = await SendToServer().newTextDiary(
-      //    diaryItem.title, diaryItem.text, diaryItem.dateInt, await androidId);
-      //diaryItem.line = initialline.line;
-      items.add(diaryItem);
-    }
-  }*/
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
@@ -159,16 +152,12 @@ class _MainScreenState extends State<MainScreen> {
                       setState(() {
                         dateText = DateFormat.yMMM().format(date);
                         datetext = DateFormat.yMMM().format(date);
-                      });
-                      /*setState(() async { -> async로 선언했더니 날짜가 바뀌지 않음
-                        dateText = DateFormat.yMMM().format(date);
-                        datetext = DateFormat.yMMM().format(date);
-                        dateYearMonth =
+                        yearMonth =
                             int.parse(DateFormat('yyyyMM').format(date));
                         // 선택한 날짜의 다이어리 리스트 불러오기
-                        //diarylist = await GetFromServer()
-                        //    .getDiaryList('androidId', dateYearMonth);
-                      });*/
+                        //diarylist = GetFromServer()
+                        //    .getDiaryList('androidId', yearMonth);
+                      });
                     }, currentTime: DateTime.now(), locale: LocaleType.ko);
                   },
                   child: Text(

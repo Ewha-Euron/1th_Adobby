@@ -7,9 +7,6 @@ import 'package:highlightable/highlightable.dart';
 
 var diary = new Diary();
 
-// 한줄 요약 불러오기
-//String initialText =
-//    (initialline != null) ? initialline!.line : 'summarized line';
 String initialText = 'summarized line';
 
 class DetailScreen extends StatefulWidget {
@@ -37,6 +34,9 @@ class _DetailScreenState extends State<DetailScreen> {
               initialText = newValue;
               diary.line = initialText;
               editMode = false;
+
+              // 한줄 일기 수정
+              // SendToServer().modifyLine('androidId', 1, diary.line);
             });
           },
           autofocus: true,
