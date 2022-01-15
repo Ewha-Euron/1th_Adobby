@@ -36,6 +36,16 @@ class _AddScreenState extends State<AddScreen> {
 
                 Navigator.pop(context, diary);
               },
+              /*onPressed: () async {
+                final diary = new Diary(
+                    title: _diaryTitleController.value.text,
+                    text: _diaryTextController.value.text);
+                // 일기 추가할 때 호출되는 함수
+                LineInitialize initialline = await SendToServer().newTextDiary(
+                    diary.title, diary.text, diary.dateInt, 'await androidId');
+                diary.line = initialline.line;
+                Navigator.pop(context, diary);
+              },*/
               child: Text(
                 '저장',
                 style: TextStyle(color: Colors.black),
@@ -64,19 +74,20 @@ class _AddScreenState extends State<AddScreen> {
                     color: Colors.deepPurple[400]),
               ),
               Text(
-                DateFormat.E().format(DateTime.now()),
+                DateFormat.EEEE().format(DateTime.now()),
                 style: TextStyle(fontSize: 15.0),
               ),
               SizedBox(
                 height: 20,
               ),
+              /*
               Text(
                 '따분한 일상에 감성 한 스푼',
                 style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 20,
-              ),
+              ),*/
               Expanded(
                 flex: 1,
                 child: Column(
@@ -101,7 +112,7 @@ class _AddScreenState extends State<AddScreen> {
                       margin: EdgeInsets.all(8.0),
                       width: width - 80,
                       child: TextField(
-                        maxLines: 6,
+                        maxLines: 7,
                         controller: _diaryTextController,
                         decoration: InputDecoration(
                           labelText: '내용을 작성해주세요',

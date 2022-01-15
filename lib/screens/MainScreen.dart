@@ -1,4 +1,5 @@
 import 'package:adobby/model/diaryList.dart';
+import 'package:adobby/model/lineInitialize.dart';
 import 'package:adobby/screens/AddScreen.dart';
 import 'package:adobby/screens/CalendarScreen.dart';
 import 'package:adobby/screens/DetailScreen.dart';
@@ -21,40 +22,49 @@ class _MainScreenState extends State<MainScreen> {
   var items = <Diary>[];
   var itemsToCalendar = <Diary>[];
   String dateText = DateFormat.yMMM().format(DateTime.now());
+  int yearMonth = 202201;
 
-  // 다이어리 목록 불러와서 저장하기
-  DiaryList diarylist = new DiaryList(diaryList: <Diary>[]);
+  Future<DiaryList>? diarylist;
+  //DiaryList? diarylist;
 
-  // 데이터 불러오기 items 초기화
+  // 일기 목록 불러오기
+  /*
   void initState() async {
     super.initState();
-    diarylist = await GetFromServer().getDiaryList('androidId', 202201);
-    items = diarylist.diaryList;
-  }
+    diarylist = GetFromServer().getDiaryList('androidId', yearMonth);
+    items = (diarylist != null) ? (await diarylist)!.diaryList : <Diary>[];
+  }*/
 
+  Future<LineInitialize>? lineinitialize;
+
+  // 일기 작성
   void _awaitReturnValueFromAddScreen(BuildContext context) async {
     final diaryItem = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => AddScreen()));
     if (diaryItem != null) {
+      lineinitialize = SendToServer().newTextDiary(
+          diaryItem.title, diaryItem.text, diaryItem.dateInt, 'androidId');
       items.add(diaryItem);
-      // 서버에 일기 저장하는 함수 호출
-      SendToServer()
-          .newTextDiary(diaryItem.text, diaryItem.dateInt, await androidId);
+      setState(() {});
     }
   }
 
   Widget _buildItemWidget(Diary diary) {
     return Card(
       child: ListTile(
-        onTap: () {
+        onTap: () async {
           final detailedDiary = new Diary(title: diary.title, text: diary.text);
 
-          Navigator.push(
+          final modifiedLine = await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => DetailScreen(
                         detailedDiary: detailedDiary,
                       )));
+
+          setState(() {
+            diary.line = modifiedLine;
+          });
         },
         leading: Text(
           DateFormat.MMMd().format(diary.date),
@@ -63,8 +73,8 @@ class _MainScreenState extends State<MainScreen> {
           diary.title,
         ),
         subtitle: Text(
-          diary.text,
-          //diary.line,
+          //diary.text,
+          diary.line,
         ),
         isThreeLine: true,
       ),
@@ -139,13 +149,14 @@ class _MainScreenState extends State<MainScreen> {
                           date.timeZoneOffset.inHours.toString());
                     }, onConfirm: (date) {
                       print('confirm $date');
-                      setState(() async {
+                      setState(() {
                         dateText = DateFormat.yMMM().format(date);
                         datetext = DateFormat.yMMM().format(date);
-                        dateYearMonth =
+                        yearMonth =
                             int.parse(DateFormat('yyyyMM').format(date));
-                        diarylist = await GetFromServer()
-                            .getDiaryList('androidId', dateYearMonth);
+                        // 선택한 날짜의 다이어리 리스트 불러오기
+                        //diarylist = GetFromServer()
+                        //    .getDiaryList('androidId', yearMonth);
                       });
                     }, currentTime: DateTime.now(), locale: LocaleType.ko);
                   },
