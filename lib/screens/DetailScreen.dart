@@ -3,6 +3,7 @@ import 'package:adobby/widgets/Diary.dart';
 import 'package:adobby/widgets/DiaryEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:highlightable/highlightable.dart';
 
 var diary = new Diary();
 
@@ -43,6 +44,17 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
       ));
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+      HighlightText(
+        initialText,
+        detectWords: false,
+        caseSensitive: false,
+        highlightable: initialText,
+        highlightStyle: TextStyle(
+          fontSize: 19.0,
+          color: Colors.black,
+          backgroundColor: Colors.deepPurple[100],
+        ),
+      ),
       Text(
         initialText,
         style: TextStyle(fontSize: 19.0),
@@ -64,6 +76,12 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           actions: <Widget>[
             ElevatedButton(
               onPressed: () {
@@ -98,7 +116,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     color: Colors.deepPurple[400]),
               ),
               Text(
-                DateFormat.E().format(DateTime.now()),
+                DateFormat.EEEE().format(DateTime.now()),
                 style: TextStyle(fontSize: 15.0),
               ),
               SizedBox(

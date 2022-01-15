@@ -15,6 +15,7 @@ class Diary {
   String title;
   String text;
   String line = 'initial line';
+  // 다이어리 추가하고 메인 화면에서는 initial line이 렌더링 됨.
 
   Diary({this.title = '', this.text = ''});
 }

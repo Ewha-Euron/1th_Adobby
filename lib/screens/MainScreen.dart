@@ -40,7 +40,6 @@ class _MainScreenState extends State<MainScreen> {
         context, MaterialPageRoute(builder: (context) => AddScreen()));
     if (diaryItem != null) {
       items.add(diaryItem);
-
       setState(() {});
     }
   }
