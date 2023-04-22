@@ -11,4 +11,4 @@
 - Back-end: `Spring Boot` `MongoDB` `Flask`
 - Front-end: `Flutter`
 
-![](ADOBBY_demo_Trim.gif)
+<img src="ADOBBY_demo_Trim.gif" width="400"/>
